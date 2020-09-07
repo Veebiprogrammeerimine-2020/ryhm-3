@@ -12,6 +12,16 @@
   if($hournow >= 8 and $hournow < 18){
 	  $partofday = "õppimise aeg";
   }
+  
+  //jälgime semestri kulgu
+  $semesterstart = new DateTime("2020-8-31");
+  $semesterend = new DateTime("2020-12-13");
+  $semesterduration = $semesterstart->diff($semesterend);
+  $today = new DateTime("now");
+  $fromsemesterstart = $semesterstart->diff($today);
+  //saime aka erinevuse objektina, seda niisama näidata ei saa
+  $fromsemesterstartdays = $fromsemesterstart->format("%r%a");
+  
 ?>
 <!DOCTYPE html>
 <html lang="et">
@@ -25,7 +35,7 @@
   <h1><?php echo $username; ?> programmeerib veebi</h1>
   <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
-  <p>Lehe avamise aeg: <?php echo $fulltimenow; ?>. 
+  <p>Lehe avamise aeg: <?php echo $fulltimenow .", semestri algusest on möödunud " .$fromsemesterstartdays ." päeva"; ?>. 
   <?php echo "Parajasti on " .$partofday ."."; ?></p>
 </body>
 </html>
