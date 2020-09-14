@@ -3,6 +3,14 @@
   $fulltimenow = date("d.m.Y H:i:s");
   $hournow = date("H");
   $partofday = "lihtsalt aeg";
+  
+  $weekdaynameset = ["esmaspäev", "teisipäev", "kolmapäev", "neljapäev", "reede", "laupäev", "pühapäev"];
+  $monthnameset = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
+  
+  //küsime nädalapäeva
+  $weekdaynow = date("N");
+  //echo $weekdaynow;
+  
   if($hournow < 6){
 	  $partofday = "uneaeg";
   }
@@ -29,9 +37,7 @@
   //saime aja erinevuse objektina, seda niisama näidata ei saa
   $fromsemesterstartdays = $fromsemesterstart->format("%r%a");
   $semesterpercentage = 0;
-  
-  
-  
+    
   $semesterinfo = "Semester kulgeb vastavalt akadeemilisele kalendrile.";
   if($semesterstart > $today){
 	  $semesterinfo = "Semester pole veel peale hakanud!";
@@ -49,6 +55,37 @@
   if($fromsemesterstartdays > $semesterdurationdays){
 	  $semesterinfo = "Semester on läbi saanud!";
   }
+  
+  //loen kataloogist piltide nimekirja
+  //$allfiles = scandir("../vp_pics/");
+  $allfiles = array_slice(scandir("../vp_pics/"), 2);
+  //echo $allfiles;  //massiivi nii näidata ei saa!!!
+  //var_dump($allfiles);
+  //$allpicfiles = array_slice($allfiles, 2);
+  //var_dump($allpicfiles);
+  $allpicfiles = [];
+  $picfiletypes = ["image/jpeg", "image/png"];
+  //käin kogu massiivi läbi ja kontrollin iga üksikut elementi, kas on sobiv fail ehk pilt
+  foreach ($allfiles as $file){
+	  $fileinfo = getImagesize("../vp_pics/" .$file);
+	  if(in_array($fileinfo["mime"], $picfiletypes) == true){
+		  array_push($allpicfiles, $file);
+	  }
+  }
+  
+  //paneme kõik pildid järjest ekraanile
+  //uurime, mitu pilti on ehk mitu faili on nimekirjas - massiivis
+  $piccount = count($allpicfiles);
+  //echo $piccount;
+  //$i = $i + 1;
+  //$i += 1;
+  //$i ++;
+  $imghtml = "";
+  for($i = 0; $i < $piccount; $i ++){
+	  //<img src="../img/vp_banner.png" alt="alt tekst">
+	  $imghtml .= '<img src="../vp_pics/' .$allpicfiles[$i] .'" ';
+	  $imghtml .= 'alt="Tallinna Ülikool">';
+  }
 
 ?>
 <!DOCTYPE html>
@@ -59,13 +96,15 @@
 
 </head>
 <body>
-  <img src="../img/vp_banner.png" alt="Veebiprogrammeerimise kursuse bänner"> 
+  <img src="../img/vp_banner.png" alt="Veebiprogrammeerimise kursuse bänner">
   <h1><?php echo $username; ?> programmeerib veebi</h1>
   <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
-  <p>Lehe avamise aeg: <?php echo $fulltimenow; ?>. 
+  <p>Lehe avamise aeg: <?php echo $weekdaynameset[$weekdaynow - 1] .", " .$fulltimenow; ?>. 
   <?php echo "Parajasti on " .$partofday ."."; ?></p>
   <p><?php echo $semesterinfo; ?></p>
+  <hr>
+  <?php echo $imghtml; ?>
   
 </body>
 </html>
