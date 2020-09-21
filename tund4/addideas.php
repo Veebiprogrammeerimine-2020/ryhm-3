@@ -30,6 +30,10 @@
   <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
   
+  <ul>
+    <li><a href="home.php">Avalehele</a></li>
+  </ul>
+  
   <form method="POST">
     <label>Sisesta oma tänane mõttetu mõte!</label>
 	<input type="text" name="nonsens" placeholder="mõttekoht">

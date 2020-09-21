@@ -102,7 +102,12 @@
   <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
   
-  <p><a href="listideas.php">Mõtete näitamine</a> | <a href="addideas.php">Mõtete lisamine</a></p>
+  <ul>
+    <li><a href="listideas.php">Mõtete näitamine</a></li>
+	<li><a href="addideas.php">Mõtete lisamine</a></li>
+	<li><a href="listfilms.php">Filmiinfo näitamine</a></li>
+  </ul>
+  <!-- kommentaar  -->
   
   <p>Lehe avamise aeg: <?php echo $weekdaynameset[$weekdaynow - 1] .", " .$fulltimenow; ?>. 
   <?php echo "Parajasti on " .$partofday ."."; ?></p>
