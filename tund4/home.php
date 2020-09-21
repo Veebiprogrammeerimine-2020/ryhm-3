@@ -106,6 +106,7 @@
     <li><a href="listideas.php">Mõtete näitamine</a></li>
 	<li><a href="addideas.php">Mõtete lisamine</a></li>
 	<li><a href="listfilms.php">Filmiinfo näitamine</a></li>
+	<li><a href="addfilms.php">Filmiinfo lisamine</a></li>
   </ul>
   <!-- kommentaar  -->
   

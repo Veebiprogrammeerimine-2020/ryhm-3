@@ -3,36 +3,7 @@
   require("../../../../config_vp2020.php");
   //kui kasutaja on vormis andmeid saatnud, siis salvestame andmebaasi
   //$database = "if20_rinde_3";
-  $database = "if20_inga_pe_1";
-  
-  //loeme andmebaasist
-  $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
-  //valmistame ette SQL käsu
-  //$stmt = $conn->prepare("SELECT pealkiri, aasta, kestus, zanr, tootja, lavastaja FROM film");
-  $stmt = $conn->prepare("SELECT * FROM film");
-  echo $conn->error;
-  //seome tulemuse mingi muutujaga
-  $stmt->bind_result($titlefromdb, $yearfromdb, $durationfromdb, $genrefromdb, $studiofromdb, $directorfromdb);
-  $stmt->execute();
-  $filmshtml = "\t <ol> \n";
-  //võtan, kuni on
-  while($stmt->fetch()){
-	  //<p>suvaline mõte </p>
-	  $filmshtml .= "\t \t <li>" .$titlefromdb ."\n";
-	  $filmshtml .= "\t \t \t <ul> \n";
-	  $filmshtml .= "\t \t \t \t <li>Valmimisaasta: " .$yearfromdb ."</li> \n";
-	  $filmshtml .= "\t \t \t \t <li>Kestus: " .$durationfromdb ." minutit</li> \n";
-	  $filmshtml .= "\t \t \t \t <li>Žanr: " .$genrefromdb ."</li> \n";
-	  $filmshtml .= "\t \t \t \t <li>Tootja/stuudio: " .$studiofromdb ."</li> \n";
-	  $filmshtml .= "\t \t \t \t <li>Lavastaja: " .$directorfromdb ."</li> \n";
-	  $filmshtml .= "\t \t \t </ul> \n";
-	  $filmshtml .= "\t \t </li> \n";
-  }
-  $filmshtml .= "\t </ol> \n";
-  
-  $stmt->close();
-  $conn->close();
-  //ongi andmebaasisit loetud
+  require("fnc_film.php");
 
   $username = "Andrus Rinde";
 
@@ -49,7 +20,7 @@
   </ul>
   
   <hr>
-  <?php echo $filmshtml; ?>
+  <?php echo readfilms(); ?>
 </body>
 </html>
 
