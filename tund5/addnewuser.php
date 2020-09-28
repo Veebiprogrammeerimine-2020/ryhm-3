@@ -1,5 +1,7 @@
 <?php
   require("../../../../config_vp2020.php");
+  require("fnc_common.php");
+  
   //require("fnc_user.php");
   //kui klikiti nuppu, siis kontrollime ja salvestame
   $monthnameset = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
@@ -20,26 +22,26 @@
   if(isset($_POST["submituserdata"])){
 	  
 	  if (!empty($_POST["firstnameinput"])){
-		$firstname = $_POST["firstnameinput"];
+		$firstname = test_input($_POST["firstnameinput"]);
 	  } else {
 		  $firstnameerror = "Palun sisesta eesnimi!";
 	  }
 	  
 	  if (!empty($_POST["lastnameinput"])){
-		$lastname = $_POST["lastnameinput"];
+		$lastname = test_input($_POST["lastnameinput"]);
 	  } else {
 		  $lastnameerror = "Palun sisesta perekonnanimi!";
 	  }
 	  
 	  if(isset($_POST["genderinput"])){
-		//$gender = intval($_POST["genderinput"]);
-		$gender = $_POST["genderinput"];
+		$gender = intval($_POST["genderinput"]);
+		//$gender = $_POST["genderinput"];
 	  } else {
 		  $gendererror = "Palun märgi sugu!";
 	  }
 	  
 	  if (!empty($_POST["emailinput"])){
-		$email = $_POST["emailinput"];
+		$email = test_input($_POST["emailinput"]);
 	  } else {
 		  $emailerror = "Palun sisesta e-postiaadress!";
 	  }
@@ -87,7 +89,7 @@
     <li><a href="home.php">Avalehele</a></li>
   </ul>
   <hr>
-  <form method="POST">
+  <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
       <label for="firstnameinput">Eesnimi:</label>
 	  <br>
 	  <input name="firstnameinput" id="firstnameinput" type="text" value="<?php echo $firstname; ?>"><span><?php echo $firstnameerror; ?></span>
