@@ -3,6 +3,8 @@
   require("../../../../config_vp2020.php");
   require("fnc_common.php");
   require("fnc_user.php");
+  //käivitan sessiooni
+  session_start();
   
   //$username = "Andrus Rinde";
   $fulltimenow = date("d.m.Y H:i:s");
