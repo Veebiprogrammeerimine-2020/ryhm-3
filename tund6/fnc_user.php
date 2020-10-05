@@ -35,6 +35,18 @@
 					//mis kõik teha, kui saigi õige parooli, sisselogimine
 					$notice = "ok";
 					$stmt->close();
+					
+					$stmt = $conn->prepare("SELECT vpusers_id, firstname, lastname FROM vpusers WHERE email = ?");
+					echo $conn->error;
+					$stmt->bind_param("s", $email);
+					$stmt->bind_result($idfromdb, $firstnamefromdb, $lastnamefromdb);
+					$stmt->execute();
+					$stmt->fetch();
+					//omistan loetud väärtused sessioonimuutujatele
+					$_SESSION["userid"] = $idfromdb;
+					$_SESSION["userfirstname"] = $firstnamefromdb;
+					$_SESSION["userlastname"] = $lastnamefromdb;
+					$stmt->close();
 					$conn->close();
 					header("Location: home.php");
 					exit();
@@ -50,4 +62,8 @@
 		$stmt->close();
 		$conn->close();
 		return $notice;
+	}
+	
+	function storeuserprofile($description, $bgcolor, $txtcolor){
+		
 	}

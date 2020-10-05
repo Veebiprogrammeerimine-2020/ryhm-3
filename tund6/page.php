@@ -4,7 +4,7 @@
   require("fnc_common.php");
   require("fnc_user.php");
   
-  $username = "Andrus Rinde";
+  //$username = "Andrus Rinde";
   $fulltimenow = date("d.m.Y H:i:s");
   $hournow = date("H");
   $partofday = "lihtsalt aeg";
@@ -124,7 +124,7 @@
 	  }
 	  
 	  if(empty($emailerror) and empty($passworderror)){
-		  echo "Juhhei!" .$email .$_POST["passwordinput"];
+		  //echo "Juhhei!" .$email .$_POST["passwordinput"];
 		  $notice = signin($email, $_POST["passwordinput"]);
 	  }
   }
@@ -133,7 +133,7 @@
 ?>
 
   <img src="../img/vp_banner.png" alt="Veebiprogrammeerimise kursuse bänner">
-  <h1><?php echo $username; ?> programmeerib veebi</h1>
+  <h1>Äge veebisüsteem</h1>
   <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
   
