@@ -1,5 +1,4 @@
 <?php
-  //$username = "Andrus Rinde";
   session_start();
   
   //kui pole sisseloginud
@@ -13,7 +12,11 @@
 	   header("Location: page.php");
 	   exit();
   }
+  //loeme andmebaasi login ifo muutujad
+  require("../../../../config_vp2020.php");
   
+  require("fnc_filmoutput.php");
+
   require("header.php");
 ?>
 
@@ -21,17 +24,14 @@
   <h1><?php echo $_SESSION["userfirstname"] ." " .$_SESSION["userlastname"]; ?> programmeerib veebi</h1>
   <p>See veebileht on loodud õppetöö käigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>Leht on loodud veebiprogrammeerimise kursusel <a href="http://www.tlu.ee">Tallinna Ülikooli</a> Digitehnoloogiate instituudis.</p>
-  <p><a href="?logout=1">Logi välja</a>!</p>
+    
   <ul>
-    <li><a href="listideas.php">Mõtete näitamine</a></li>
-	<li><a href="addideas.php">Mõtete lisamine</a></li>
-	<li><a href="listfilms.php">Filmiinfo näitamine</a></li>
-	<li><a href="addfilms.php">Filmiinfo lisamine</a></li>
-	<li><a href="addfilmrelations.php">Filmi seoste määramine</a></li>
-	<li><a href="listfilmpersons.php">Filmitegelased</a></li>
-	<li><a href="userprofile.php">Oma profiili haldamine</a></li>
+    <li><a href="home.php">Avalehele</a></li>
+	<li><a href="?logout=1">Logi välja</a>!</li>
   </ul>
   
+  <hr>
+  <?php echo readpersonsinfilm(); ?>
 </body>
 </html>
 
