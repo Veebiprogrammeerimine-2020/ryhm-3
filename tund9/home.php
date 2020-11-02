@@ -14,6 +14,18 @@
 	   exit();
   }
   
+  //testin klassi
+  //require("classes/Generic_class.php");
+  //loome uue instantsi
+  //$myfirstinstance = new Generic();
+  //echo "Salajane number on: " .$myfirstinstance->secretnumber;
+  //echo "Avalik number on: " .$myfirstinstance->availablenumber;
+  //$myfirstinstance->tellSecret();
+  //$myfirstinstance->showValues();
+  //unset($myfirstinstance);
+  //$myfirstinstance->showValues();
+  //echo "Avalik number on: " .$myfirstinstance->availablenumber;
+  
   require("header.php");
 ?>
 

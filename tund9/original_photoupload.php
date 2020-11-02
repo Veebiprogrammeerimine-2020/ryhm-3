@@ -13,8 +13,7 @@
   }
   
   require("../../../../config_vp2020.php");
-  require("classes/Photoupload_class.php");
-  require("fnc_photo.php");//varsti kõrvaldame selle rea
+  require("fnc_photo.php");
   require("fnc_common.php");
   
   $notice = "";
@@ -24,7 +23,6 @@
   $origphotodir = "../photoupload_orig/";
   $normalphotodir = "../photoupload_normal/";
   $thumbphotodir = "../photoupload_thumb/";
-  $watermarkimage = "../img/vp_logo_w100_overlay.png";
   $maxphotowidth = 600;
   $maxphotoheight = 400;
   $thumbsize = 100;
@@ -39,7 +37,6 @@
 	//var_dump($_FILES);
 	//kas on üldse pilt
 	if(isset($_FILES["photoinput"]["tmp_name"])){
-			
 		$check = getimagesize($_FILES["photoinput"]["tmp_name"]);
 		//var_dump($check);
 		if($check !== false){
@@ -71,43 +68,43 @@
 		}
 		
 		if(empty($error)){
-			
-			//võtan klassi kasutusele
-			$myphoto = new Photoupload($_FILES["photoinput"], $filetype);
-			
+			//teeme pildi väiksemaks
+			//teeme pildiobjekti - pikslikogumi
+			if($filetype == "jpg"){
+				$mytempimage = imagecreatefromjpeg($_FILES["photoinput"]["tmp_name"]);
+			}
+			if($filetype == "png"){
+				$mytempimage = imagecreatefrompng($_FILES["photoinput"]["tmp_name"]);
+			}
+			if($filetype == "gif"){
+				$mytempimage = imagecreatefromgif($_FILES["photoinput"]["tmp_name"]);
+			}
 			//muudame pildi suurust
-			//$mynewimage = resizePhoto($mytempimage, $maxphotowidth, $maxphotoheight, true);
-			$myphoto->resizePhoto($maxphotowidth, $maxphotoheight, true);
+			$mynewimage = resizePhoto($mytempimage, $maxphotowidth, $maxphotoheight, true);
 			
-			//lisan vesimärgi
-			$myphoto->addWatermark($watermarkimage);
-			
-			//salvestan vähendatud foto
-			//$result = savePhotoFile($mynewimage, $filetype, $normalphotodir .$filename);
-			$result = $myphoto->savePhotoFile($normalphotodir .$filename);
+			$result = savePhotoFile($mynewimage, $filetype, $normalphotodir .$filename);
 			if($result == 1){
 				$notice .= "Vähendatud pildi salvestamine õnnestus!";
 			} else {
 				$error .= "Vähendatud pildi salvestamisel tekkis tõrge!";
 			}
 			
-			//imagedestroy($mynewimage);
+			imagedestroy($mynewimage);
 			
 			//teeme pisipildi
-			//$mynewimage = resizePhoto($mytempimage, $thumbsize, $thumbsize);
-			$myphoto->resizePhoto($thumbsize, $thumbsize);
+			$mynewimage = resizePhoto($mytempimage, $thumbsize, $thumbsize);
 			
-			//$result = savePhotoFile($mynewimage, $filetype, $thumbphotodir .$filename);
-			$result = $myphoto->savePhotoFile($thumbphotodir .$filename);
+			$result = savePhotoFile($mynewimage, $filetype, $thumbphotodir .$filename);
 			if($result == 1){
 				$notice .= "Pisipildi salvestamine õnnestus!";
 			} else {
 				$error .= "Pisipildi salvestamisel tekkis tõrge!";
 			}
 			
+			imagedestroy($mynewimage);
+			
 			if(empty($error)){
-				$result = $myphoto->saveOriginalPhoto($origphotodir .$filename);
-				if($result == 1){
+				if(move_uploaded_file($_FILES["photoinput"]["tmp_name"], $origphotodir .$filename)){
 					$notice .= " Originaalfaili üleslaadimine õnnestus!";
 				} else {
 					$error .= " Originaalfaili üleslaadimisel tekkis tõrge!";
@@ -124,8 +121,7 @@
 			} else {
 				$error .= " Tekkinud vigade tõttu pildi andmeid ei salvestatud!";
 			}
-			//imagedestroy($mytempimage);
-			unset($myphoto);
+			imagedestroy($mytempimage);
 		}
 	}	
   }
