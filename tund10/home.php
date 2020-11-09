@@ -60,6 +60,7 @@
 	<li><a href="listfilmpersons.php">Filmitegelased</a></li>
 	<li><a href="userprofile.php">Oma profiili haldamine</a></li>
 	<li><a href="photoupload.php">Fotode üleslaadimine</a></li>
+	<li><a href="photogallery_public.php">Fotogalerii</a></li>
   </ul>
   <hr>
   <h3>Viimane külastus</h3>
