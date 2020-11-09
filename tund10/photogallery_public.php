@@ -23,8 +23,22 @@
   $normalphotodir = "../photoupload_normal/";
   $thumbphotodir = "../photoupload_thumb/";
   
+  $photocount = countPublicPhotos(2);
+  //echo $photocount;
+  $gallerylimit = 3;
+  $page = 1;
+  
+  if(!isset($_GET["page"]) or $_GET["page"] < 1){
+	  $page = 1;
+  } elseif(round($_GET["page"] - 1) * $gallerylimit >= $photocount){
+	  $page = floor($photocount / $gallerylimit);
+  } else {
+	  $page = $_GET["page"];
+  }
+  
   //loen sisse pildid, mille privaatsus on 2 või 3
-  $publicphotothumbsHTML = readPublicPhotosThumbs(2);
+  //$publicphotothumbsHTML = readPublicPhotosThumbs(2);
+  $publicphotothumbsHTML = readPublicPhotosThumbsPage(2, $gallerylimit, $page);
   
   require("header.php");
 ?>
@@ -40,6 +54,20 @@
   </ul>
   
   <h2>Fotogalerii</h2>
+  <p>
+	<?php
+		if($page > 1){
+			echo '<span><a href="?page=' .($page - 1) .'">Eelmine leht</a> |' ." </span>\n";
+		} else {
+			echo "<span>Eelmine leht | </span> \n";
+		}
+		if($page * $gallerylimit < $photocount){
+			echo '<span><a href="?page=' .($page + 1) .'">Järgmine leht</a>' ." </span>\n";
+		} else {
+			echo "<span>Järgmine leht </span> \n";
+		}
+	?>
+  </p>
   <?php
 	echo $publicphotothumbsHTML;
   ?>
