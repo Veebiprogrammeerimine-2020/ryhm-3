@@ -1,10 +1,18 @@
 <?php
+
+  //käivitan sessiooni
+  //session_start();
+  
+  //SESSIOON
+  require("classes/Session.class.php");
+  //sessioon, mis katkeb, kui brauser suletakse ja on kättesaadav ainult meie domeenis, meie lehele
+  SessionManager::sessionStart("vp", 0, "/~rinde/", "greeny.cs.tlu.ee");
+  
   //loeme andmebaasi login ifo muutujad
   require("../../../../config_vp2020.php");
   require("fnc_common.php");
   require("fnc_user.php");
-  //käivitan sessiooni
-  session_start();
+  
   
   //$username = "Andrus Rinde";
   $fulltimenow = date("d.m.Y H:i:s");
