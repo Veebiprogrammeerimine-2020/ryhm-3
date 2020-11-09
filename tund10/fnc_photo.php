@@ -52,11 +52,15 @@
 		$stmt->execute();
 		$tempHTML = null;
 		while($stmt->fetch()){
-			//<img src="xxx.yyy" alt="jutt">
-			$tempHTML .= '<img src="' .$GLOBALS["thumbphotodir"] .$filenamefromdb .'" alt="' .$alttextfromdb .'">' ."\n";
+			//<div class="thumbGallery">
+			//<img src="xxx.yyy" alt="jutt" class="thumbs">
+			//</div>
+			$tempHTML .= '<div class="thumbgallery">' ."\n \t";
+			$tempHTML .= '<img src="' .$GLOBALS["thumbphotodir"] .$filenamefromdb .'" alt="' .$alttextfromdb .'" class="thumbs">' ."\n";
+			$tempHTML .= "</div> \n";
 		}
 		if(!empty($tempHTML)){
-			$photosHTML = "<div> \n" . $tempHTML ."\n </div> \n";
+			$photosHTML = '<div class="galleryarea">' ."\n" . $tempHTML ."\n </div> \n";
 		} else {
 			$photosHTML = "<p>Kahjuks galeriipilt eei leitud!</p> \n";
 		}

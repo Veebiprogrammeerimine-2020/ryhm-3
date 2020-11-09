@@ -18,6 +18,8 @@
   require("../../../../config_vp2020.php");
   require("fnc_photo.php");
   
+  $tolink = '<link rel="stylesheet" type="text/css" href="style/gallery.css">' ."\n";
+  
   $notice = "";
   $origphotodir = "../photoupload_orig/";
   $normalphotodir = "../photoupload_normal/";
